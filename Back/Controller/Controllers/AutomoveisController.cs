@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 namespace Controller.Controllers;
 using Model;
+using DTO;
 
 
 [ApiController]
@@ -9,35 +10,32 @@ public class AutomoveisController : ControllerBase
 {
     [HttpPost]
     [Route("register")]
-    public object registerUser([FromBody] Automoveis automoveis){
-        var id = automoveis.save();
-        return new{
-            id = id,
+    public object registerUser([FromBody] AutomoveisDTO automoveis){
+        var automoveisModel = new Automoveis{
             modelo = automoveis.modelo,
             valor = automoveis.valor
         };
+        automoveisModel.save();
+        return automoveis;
     }
 
     [HttpPut]
-    [Route("update/{Id}")]
-    public object editAutomovel([FromBody] Automoveis automoveis, int Id){
-        automoveis.update(automoveis, Id);
-        return new{
-            status = "ok",
-            mensagem = "deu boa"
+    [Route("update/{id}")]
+    public object editAutomovel([FromBody] AutomoveisDTO automoveis, int id){
+        var automoveisModel = new Automoveis{
+            modelo = automoveis.modelo,
+            valor = automoveis.valor
         };
+        automoveisModel.update(automoveisModel, id);
+        return automoveisModel;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
-    public object deleteAutomoveis([FromBody] Automoveis automoveis, int id)
+    public object deleteAutomoveis(int id)
     {
-        automoveis.delete(id);
-        return new
-        {
-            status = "ok",
-            mensagem = "excluido"
-        };
+        var automoveis = Model.Automoveis.delete(id);
+        return automoveis;
     }
 
     [HttpGet]
@@ -46,5 +44,14 @@ public class AutomoveisController : ControllerBase
     {
         var automovel = Model.Automoveis.findId(id);
         return automovel;
+    }
+
+    [HttpGet]
+    [Route("getAll")]
+    public IActionResult getAllAutomoveis()
+    {
+        var automoveis = Model.Automoveis.findAll();
+        var result = new ObjectResult(automoveis);
+        return result;
     }
 }

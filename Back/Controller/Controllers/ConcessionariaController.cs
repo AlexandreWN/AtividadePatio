@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 namespace Controller.Controllers;
 using Model;
+using DTO;
 
 
 [ApiController]
@@ -9,34 +10,30 @@ public class ConcessionariaController : ControllerBase
 {
     [HttpPost]
     [Route("register")]
-    public object registerConcessionaria([FromBody] Concessionaria concessionaria){
-        var id = concessionaria.save();
-        return new{
-            id = id,
-            nome = concessionaria.nome,
+    public object registerConcessionaria([FromBody] ConcessionariaDTO concessionaria){
+        var concessionariaModel = new Concessionaria{
+            nome = concessionaria.nome
         };
+        concessionariaModel.save();
+        return concessionaria;
     }
 
     [HttpPut]
     [Route("update/{id}")]
-    public object editConcessionaria([FromBody] Concessionaria concessionaria, int id){
-        concessionaria.update(concessionaria, id);
-        return new{
-            status = "ok",
-            mensagem = "deu boa"
+    public object editConcessionaria([FromBody] ConcessionariaDTO concessionaria, int id){
+        var concessionariaModel = new Concessionaria{
+            nome = concessionaria.nome
         };
+        concessionariaModel.update(concessionariaModel, id);
+        return concessionariaModel;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
-    public object deleteConcessionaria([FromBody] Concessionaria concessionaria, int id)
+    public object deleteConcessionaria(int id)
     {
-        concessionaria.delete(id);
-        return new
-        {
-            status = "ok",
-            mensagem = "excluido"
-        };
+        var concessionaria = Model.Concessionaria.delete(id);
+        return concessionaria;
     }
 
     [HttpGet]
@@ -45,5 +42,14 @@ public class ConcessionariaController : ControllerBase
     {
         var concessionaria = Model.Concessionaria.findId(id);
         return concessionaria;
+    }
+
+    [HttpGet]
+    [Route("getAll")]
+    public IActionResult getAllConcessionaria()
+    {
+        var concessionaria = Model.Concessionaria.findAll();
+        var result = new ObjectResult(concessionaria);
+        return result;
     }
 }

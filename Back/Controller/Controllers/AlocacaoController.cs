@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 namespace Controller.Controllers;
 using Model;
+using DTO;
 
 
 [ApiController]
@@ -9,37 +10,42 @@ public class AlocacaoController : ControllerBase
 {
     [HttpPost]
     [Route("register")]
-    public object registerAlocation([FromBody] Alocacao alocacao){
-        var id = alocacao.save();
-        return new{
-            id = id,
+    public object registerAlocation([FromBody] AlocacaoDTO alocacao){
+        var concessionaria = Model.Concessionaria.findId(alocacao.concessionaria);
+        var automoveis = Model.Automoveis.findId(alocacao.automoveis);
+
+        /*var AlocacaoModel = new Alocacao{
             quantidade = alocacao.quantidade,
             area = alocacao.area,
-            concessionaria = alocacao.concessionaria,
-            automoveis = alocacao.automoveis
+            concessionaria = concessionaria,
+            automoveis = automoveis
         };
+        AlocacaoModel.save();*/
+        return automoveis;  
     }
 
     [HttpPut]
-    [Route("update/{Id}")]
-    public object editAlocation([FromBody] Alocacao alocacao, int Id){
-        alocacao.update(alocacao, Id);
-        return new{
-            status = "ok",
-            mensagem = "deu boa"
+    [Route("update/{id}")]
+    public object editAlocation([FromBody] AlocacaoDTO alocacao, int id){
+        var concessionaria = Model.Concessionaria.findId(alocacao.concessionaria);
+        var automoveis = Model.Automoveis.findId(alocacao.automoveis);
+
+       /* var alocacaoModel = new Alocacao{
+            quantidade = alocacao.quantidade,
+            area = alocacao.area,
+            concessionaria = concessionaria,
+            automoveis = automoveis
         };
+        alocacaoModel.update(alocacaoModel, id);*/
+        return automoveis;
     }
 
     [HttpDelete]
     [Route("delete/{id}")]
-    public object deleteAlocation([FromBody] Alocacao alocacao, int id)
+    public object deleteAlocation(int id)
     {
-        alocacao.delete(id);
-        return new
-        {
-            status = "ok",
-            mensagem = "excluido"
-        };
+        var alocacao = Model.Alocacao.delete(id);
+        return alocacao;
     }
 
     [HttpGet]
@@ -48,5 +54,14 @@ public class AlocacaoController : ControllerBase
     {
         var alocacao = Model.Alocacao.findId(id);
         return alocacao;
+    }
+
+    [HttpGet]
+    [Route("getAll")]
+    public IActionResult getAllAlocacao()
+    {
+        var alocacao = Model.Alocacao.findAll();
+        var result = new ObjectResult(alocacao);
+        return result;
     }
 }
