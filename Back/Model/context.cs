@@ -34,8 +34,8 @@ public class Context : DbContext
             entity.HasKey(al => al.id);
             entity.Property(al => al.quantidade);
             entity.Property(al => al.area);
-            entity.HasOne(al => al.automoveis);
-            entity.HasOne(al => al.concessionaria);
+            entity.HasOne(al => al.automoveis).WithMany().HasForeignKey(al => al.automoveisId);
+            entity.HasOne(al => al.concessionaria).WithMany().HasForeignKey(al => al.concessionariaId);
         });
         modelBuilder.Entity<Cliente>(entity =>{
             entity.HasKey(cl => cl.id);

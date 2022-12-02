@@ -36,7 +36,7 @@ public class Automoveis
         }
     }
 
-    public void delete(int id)
+    public static object delete(int id)
     {
         using (var context = new Context())
         {
@@ -44,6 +44,8 @@ public class Automoveis
 
             context.Automoveis.Remove(automoveis);
             context.SaveChanges();
+
+            return automoveis;
         }
     }
 
@@ -57,6 +59,20 @@ public class Automoveis
                 modelo = automoveis.modelo,
                 valor = automoveis.valor
             };
+        }
+    }
+
+    public static List<object> findAll()
+    {
+        using (var context = new Context())
+        {
+            var automoveis = context.Automoveis;
+            
+            List<object> dados = new List<object>();
+            foreach(var i in automoveis){
+                dados.Add(i);
+            }
+            return dados;
         }
     }
 }

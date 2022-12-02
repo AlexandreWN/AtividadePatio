@@ -11,33 +11,28 @@ public class AlocacaoController : ControllerBase
     [HttpPost]
     [Route("register")]
     public object registerAlocation([FromBody] AlocacaoDTO alocacao){
-        var concessionaria = Model.Concessionaria.findId(alocacao.concessionaria);
-        var automoveis = Model.Automoveis.findId(alocacao.automoveis);
 
-        /*var AlocacaoModel = new Alocacao{
+        var AlocacaoModel = new Alocacao{
             quantidade = alocacao.quantidade,
             area = alocacao.area,
-            concessionaria = concessionaria,
-            automoveis = automoveis
+            concessionariaId = alocacao.concessionariaId,
+            automoveisId = alocacao.automoveisId
         };
-        AlocacaoModel.save();*/
-        return automoveis;  
+
+        AlocacaoModel.save();
+        return alocacao;  
     }
 
     [HttpPut]
     [Route("update/{id}")]
     public object editAlocation([FromBody] AlocacaoDTO alocacao, int id){
-        var concessionaria = Model.Concessionaria.findId(alocacao.concessionaria);
-        var automoveis = Model.Automoveis.findId(alocacao.automoveis);
+        
+        var alocacaoModel = Model.Alocacao.findId(id);
+        alocacaoModel.quantidade = alocacao.quantidade;
+        alocacaoModel.area = alocacao.area;
 
-       /* var alocacaoModel = new Alocacao{
-            quantidade = alocacao.quantidade,
-            area = alocacao.area,
-            concessionaria = concessionaria,
-            automoveis = automoveis
-        };
-        alocacaoModel.update(alocacaoModel, id);*/
-        return automoveis;
+        alocacaoModel.update();
+        return alocacaoModel;
     }
 
     [HttpDelete]

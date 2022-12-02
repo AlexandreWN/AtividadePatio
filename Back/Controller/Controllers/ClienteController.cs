@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 namespace Controller.Controllers;
 using Model;
+using DTO;
 
 using Microsoft.AspNetCore.Cors;
 using Microsoft.IdentityModel.Tokens;
@@ -15,11 +16,11 @@ public class ClienteController : ControllerBase
 {
     [HttpPost]
     [Route("register")]
-    public object registerUser([FromBody] Cliente cliente){
-        var id = cliente.save();
-        return new{
-            id = id,
+    public object registerUser([FromBody] ClienteDTO cliente){
+        var clienteModel = new Cliente{
             nome = cliente.nome
         };
+        clienteModel.save();
+        return cliente;
     }
 }

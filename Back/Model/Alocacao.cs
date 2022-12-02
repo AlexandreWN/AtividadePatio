@@ -1,54 +1,35 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Model;
 public class Alocacao
 {
     public int id { get; set; }
     public int quantidade { get; set; }
     public int area { get; set; }
+    public int concessionariaId { get; set; }
+    public int automoveisId { get; set; }
     public Concessionaria concessionaria { get; set; }
     public Automoveis automoveis { get; set; }
 
     public int save(){
-        int Id = 0;
-        using (var context = new Context()){
-            var alocacao  = new Alocacao(){
-                quantidade = this.quantidade,
-                area = this.area,
-                concessionaria = this.concessionaria,
-                automoveis = this.automoveis
-            };
-            context.Alocacao.Add(alocacao);
-            context.SaveChanges();
-            Id = alocacao.id;
-        }
-        return Id;
+        using var context = new Context();
+
+        context.Alocacao.Add(this);
+        context.SaveChanges();
+        
+        return this.id;
     }
 
-    public void update(Alocacao Alocacao, int id)
+    public void update()
     {
-        using (var context = new Context())
-        {
-            var alocacao = context.Alocacao.FirstOrDefault(i => i.id == id);
-            if(alocacao.quantidade != null)
-            {
-                alocacao.quantidade = Alocacao.quantidade;
-            }
-            if(alocacao.area != null)
-            {
-                alocacao.area = Alocacao.area;
-            }
-            if(alocacao.concessionaria != null)
-            {
-                alocacao.concessionaria = Alocacao.concessionaria;
-            }
-            if(alocacao.automoveis != null)
-            {
-                alocacao.automoveis = Alocacao.automoveis;
-            }
-            context.SaveChanges();
-        }
+        using var context = new Context();
+
+        context.Update(this);
+        
+        context.SaveChanges();
     }
 
-    public void delete(int id)
+    public static object delete(int id)
     {
         using (var context = new Context())
         {
@@ -56,21 +37,32 @@ public class Alocacao
 
             context.Alocacao.Remove(alocacao);
             context.SaveChanges();
+
+            return alocacao;
         }
     }
 
-    public static object findId(int id)
+    public static Alocacao findId(int id)
     {
-        using (var context = new Context())
-        {
-            var alocacao = context.Alocacao.FirstOrDefault(a => a.id == id);
-            return new
-            {
-                area = alocacao.area,
-                automoveis = alocacao.automoveis,
-                quantidade = alocacao.quantidade,
-                concessionaria = alocacao.concessionaria
-            };
+        using var context = new Context();
+
+        return context.Alocacao.Where(a => a.id == id)
+        .Include(a => a.automoveis)
+        .Include(a => a.concessionaria).Single();
+    }
+
+    public static List<object> findAll()
+    {
+        using var context = new Context();
+        
+        var alocacao = context.Alocacao
+            .Include(a => a.automoveis)
+            .Include(a => a.concessionaria);
+          
+        List<object> dados = new List<object>();
+        foreach(var i in alocacao){
+            dados.Add(i);
         }
+        return dados;
     }
 }
