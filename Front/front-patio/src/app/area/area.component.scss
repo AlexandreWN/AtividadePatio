@@ -22,6 +22,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    color:#7814FF;
 
     h1{
         margin-left: 20px;
@@ -32,16 +33,19 @@
     .Botao{
         width: 20px;
         height: 20px;
+        color:#7814FF;
     }
 
     .Botao:hover{
         cursor: pointer;
+        color:#7814FF;
     }
 }
 
 .Conteudo{
     display: flex;
     flex-direction: column;
+    color: #7814FF;
 }
 
 .Item{
@@ -50,12 +54,16 @@
     flex-direction: row;
 
     .BotaoVender{
+        border-radius: 5px;
         margin-left: 20px;
         width: 80px;
+        background-color:#7814FF;
+        color:#FFF;
     }
 
     p{
         font-family: Arial, Helvetica, sans-serif;
         margin-left: 20px;
+        color:#7814FF;
     }
 }

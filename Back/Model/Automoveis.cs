@@ -8,7 +8,7 @@ public class Automoveis
     public int save(){
         int Id = 0;
         using (var context = new Context()){
-            var automoveis  = new Automoveis(){
+            var automoveis = new Automoveis(){
                 modelo = this.modelo,
                 valor = this.valor
             };

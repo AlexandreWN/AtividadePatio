@@ -48,6 +48,10 @@ export class HomeComponent implements OnInit{
   };
 
   entrar(id : number){
-    this.router.navigate(['/area/'+id]);
+    this.areas.forEach(obj => {
+      if(obj.quantidade > 0 && obj.area.toString() == id.toString()){
+        this.router.navigate(['/area/'+id]);
+      }
+    })
   };
 }

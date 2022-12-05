@@ -22,6 +22,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    color: #7814FF;
 
     h1{
         margin-left: 20px;
@@ -32,10 +33,12 @@
     .Botao{
         width: 20px;
         height: 20px;
+        color: #7814FF;
     }
 
     .Botao:hover{
         cursor: pointer;
+        color: #7814FF;
     }
 }
 
@@ -52,6 +55,7 @@
     margin-left: 20px;
     margin-top: 10px;
     justify-content: space-between;
+    color: #7814FF;
 }
 
 .Drop{
@@ -68,6 +72,9 @@
 
 .BotaoConfirmar{
     width: 80px;
+    background-color: #7814FF;
+    color:#FFF;
+    border-radius: 5px;
 }
 
 .BotaoConfirmar:hover{

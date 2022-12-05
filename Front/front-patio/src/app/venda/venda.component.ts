@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import axios from 'axios';
 import { Area } from '../Areas';
+import { Carros } from '../Carros';
 import { Clientes } from '../Clientes';
 import { Concessionaria } from '../Concessionaria';
 
@@ -15,6 +16,8 @@ export class VendaComponent {
   area = 0
   carro = 0
   concessionaria = 0
+  carroNome! : Carros
+  frase = ''
 
   clienteEsc = 0
   concessionariaEsc = 0
@@ -33,6 +36,27 @@ export class VendaComponent {
 
     console.log(this.area, this.carro, this.concessionaria)
     this.initiliaze()
+    this.getCarro(this.carro)
+  }
+
+  getCarro(carro : number){
+    var config = {
+      method: 'get',
+      url: 'https://localhost:7170/Automoveis/get/'+carro,
+      headers: {},
+      data: '',
+    }
+
+    var instance = this;
+    axios(config)
+      .then(function (response) {
+        instance.carroNome = response.data;
+        console.log(instance.clientes)
+        instance.frase = instance.carroNome?.modelo
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   initiliaze() {
