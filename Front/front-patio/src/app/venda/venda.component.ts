@@ -18,6 +18,7 @@ export class VendaComponent {
   concessionaria = 0
   carroNome! : Carros
   frase = ''
+  carroId = 0
 
   clienteEsc = 0
   concessionariaEsc = 0
@@ -51,8 +52,8 @@ export class VendaComponent {
     axios(config)
       .then(function (response) {
         instance.carroNome = response.data;
-        console.log(instance.clientes)
         instance.frase = instance.carroNome?.modelo
+        instance.carroId = instance.carroNome?.id
       })
       .catch(function (error) {
         console.log(error);
@@ -115,7 +116,9 @@ export class VendaComponent {
       instance.areas = response.data;
       instance.areas.forEach(obj => {
         instance.concessionarias.forEach(element => {
-          if(obj.concessionariaId == element.id){
+          console.log("instance.carroId")
+          console.log(instance.carroId)
+          if(obj.concessionariaId == element.id && obj.automoveisId == instance.carro){
             instance.concessionariasValidas.push(element)
           }
         });
@@ -135,7 +138,7 @@ export class VendaComponent {
     
     var config2 = {
       method: 'get',
-      url: 'https://localhost:7170/Alocacao/get2/'+this.area+'/'+conceComp2.value,
+      url: 'https://localhost:7170/Alocacao/get2/'+this.area+'/'+conceComp2.value+'/'+this.carro,
       headers: { },
       data2 : ''
     };

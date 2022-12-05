@@ -51,11 +51,11 @@ public class Alocacao
         .Include(a => a.concessionaria).Single();
     }
 
-    public static Alocacao findId3(int id, int conce)
+    public static Alocacao findId3(int id, int conce, int auto)
     {
         using var context = new Context();
 
-        return context.Alocacao.Where(a => a.area == id && a.concessionaria.id == conce)
+        return context.Alocacao.Where(a => a.area == id && a.concessionaria.id == conce &&  a.automoveisId == auto)
         .Include(a => a.automoveis)
         .Include(a => a.concessionaria).Single();
     }

@@ -52,10 +52,10 @@ public class AlocacaoController : ControllerBase
     }
 
     [HttpGet]
-    [Route("get2/{id}/{conce}")]
-    public object getAlocation2(int id, int conce)
+    [Route("get2/{id}/{conce}/{auto}")]
+    public object getAlocation2(int id, int conce, int auto)
     {
-        var alocacao = Model.Alocacao.findId3(id, conce);
+        var alocacao = Model.Alocacao.findId3(id, conce, auto);
         return alocacao;
     }
 
