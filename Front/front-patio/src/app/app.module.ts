@@ -20,8 +20,8 @@ import { VendaComponent } from './venda/venda.component';
     AppRoutingModule,
     RouterModule.forRoot([
       {path:'',component:HomeComponent},
-      {path:'area/',component:AreaComponent},
-      {path:'venda/', component:VendaComponent}
+      {path:'area/:areaId',component:AreaComponent},
+      {path:'venda/:Id/:Idcarro/:Idconcessionaria', component:VendaComponent}
     ])
   ],
   providers: [],

@@ -1,1 +1,25 @@
-<p>venda works!</p>
+<div class="Container">
+    <div class="Caixa">
+        <div class="Heder">
+            <h1>XYZ</h1>
+        <button class="Botao" (click)="sair()">X</button>
+        </div>
+        <div class="Conteudo">
+            <div class="Item">
+                <p>Cliente:</p>
+                <select name="Cliente" id="cliente" class="Drop">
+                    <option value="{{client.id}}" *ngFor="let client of clientes" >{{client.nome}}</option>
+                </select>
+            </div>
+            <div class="Item">
+                <p>Concessionaria:</p>
+                <select name="Concessionaria" id="concessionaria" class="Drop">
+                    <option value="{{concessionaria.id}}" *ngFor="let concessionaria of concessionariasValidas">{{concessionaria.nome}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="botao">
+            <button class="BotaoConfirmar" (click)="vender()">Confirmar</button>
+        </div>
+    </div>
+</div>

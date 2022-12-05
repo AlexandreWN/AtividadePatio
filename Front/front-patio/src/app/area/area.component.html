@@ -1,29 +1,13 @@
 <div class="Container">
     <div class="Caixa">
         <div class="Heder">
-            <h1>Área 10</h1>
+            <h1 id="titulo">{{frase}}</h1>
             <button class="Botao" (click)="sair()">X</button>
         </div>
         <div class="Conteudo">
-            <div class="Item">
-                <p>Modelo: XYZ | Preço: R$ xxx.xxx,xx</p>
-                <button class="BotaoVender" (click)="vender()">Vender</button>
-            </div>
-            <div class="Item">
-                <p>Modelo: XYZ | Preço: R$ xxx.xxx,xx</p>
-                <button class="BotaoVender" (click)="vender()">Vender</button>
-            </div>
-            <div class="Item">
-                <p>Modelo: XYZ | Preço: R$ xxx.xxx,xx</p>
-                <button class="BotaoVender" (click)="vender()">Vender</button>
-            </div>
-            <div class="Item">
-                <p>Modelo: XYZ | Preço: R$ xxx.xxx,xx</p>
-                <button class="BotaoVender" (click)="vender()">Vender</button>
-            </div>
-            <div class="Item">
-                <p>Modelo: XYZ | Preço: R$ xxx.xxx,xx</p>
-                <button class="BotaoVender" (click)="vender()">Vender</button>
+            <div class="Item" *ngFor="let car of carros">
+                <p>Modelo: {{car.automoveis.modelo}} | Preço: R$ {{car.automoveis.valor}}</p>
+                <button class="BotaoVender" (click)="vender(car.automoveis.id, car.concessionariaId)">Vender</button>
             </div>
         </div>
     </div>

@@ -9,15 +9,15 @@ using DTO;
 public class VendasController : ControllerBase
 {
     [HttpPost]
-    [Route("register")]
-    public object registerVenda([FromBody] VendasDTO vendas){
+    [Route("register/{id}")]
+    public object registerVenda([FromBody] VendasDTO vendas, int id){
         var VendasModel = new Vendas{
             data = DateTime.Now,
             quantidade = vendas.quantidade,
             total = vendas.total,
         };
 
-        VendasModel.save(vendas.alocacao, vendas.cliente);
+        VendasModel.save(vendas.alocacao, vendas.cliente, id);
         return VendasModel;
     }
 }

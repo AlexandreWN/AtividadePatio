@@ -47,7 +47,15 @@ public class AlocacaoController : ControllerBase
     [Route("get/{id}")]
     public object getAlocation(int id)
     {
-        var alocacao = Model.Alocacao.findId(id);
+        var alocacao = Model.Alocacao.findId2(id);
+        return alocacao;
+    }
+
+    [HttpGet]
+    [Route("get2/{id}/{conce}")]
+    public object getAlocation2(int id, int conce)
+    {
+        var alocacao = Model.Alocacao.findId3(id, conce);
         return alocacao;
     }
 

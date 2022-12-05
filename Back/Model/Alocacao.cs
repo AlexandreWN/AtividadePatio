@@ -51,6 +51,29 @@ public class Alocacao
         .Include(a => a.concessionaria).Single();
     }
 
+    public static Alocacao findId3(int id, int conce)
+    {
+        using var context = new Context();
+
+        return context.Alocacao.Where(a => a.area == id && a.concessionaria.id == conce)
+        .Include(a => a.automoveis)
+        .Include(a => a.concessionaria).Single();
+    }
+
+    public static List<object> findId2(int id)
+    {
+        using var context = new Context();
+
+        var alocacao = context.Alocacao.Where(a => a.area == id)
+        .Include(a => a.automoveis)
+        .Include(a => a.concessionaria);
+        List<object> dados = new List<object>();
+        foreach(var i in alocacao){
+            dados.Add(i);
+        }
+        return dados;
+    }
+
     public static List<object> findAll()
     {
         using var context = new Context();

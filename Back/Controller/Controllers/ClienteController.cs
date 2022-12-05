@@ -23,4 +23,13 @@ public class ClienteController : ControllerBase
         clienteModel.save();
         return cliente;
     }
+
+    [HttpGet]
+    [Route("getAll")]
+    public IActionResult getAllCliente()
+    {
+        var cliente = Model.Cliente.findAll();
+        var result = new ObjectResult(cliente);
+        return result;
+    }
 }

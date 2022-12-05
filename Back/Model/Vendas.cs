@@ -8,10 +8,10 @@ public class Vendas
     public Alocacao alocacao { get; set; }
     public Cliente cliente { get; set; }
 
-    public int save(int alocacao_id, int cliente_id){
+    public int save(int alocacao_id, int cliente_id, int concessionaria_id){
         using var context = new Context();
 
-        var alocacao = context.Alocacao.FirstOrDefault(a => a.id == alocacao_id);
+        var alocacao = context.Alocacao.FirstOrDefault(a => a.id == alocacao_id && a.concessionaria.id == concessionaria_id);
         var cliente = context.Cliente.FirstOrDefault(c => c.id == cliente_id);
         
         if(alocacao.quantidade >= this.quantidade){

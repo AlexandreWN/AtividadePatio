@@ -16,4 +16,18 @@ public class Cliente
         }
         return Id;
     }
+
+    public static List<object> findAll()
+    {
+        using (var context = new Context())
+        {
+            var cliente = context.Cliente;
+            
+            List<object> dados = new List<object>();
+            foreach(var i in cliente){
+                dados.Add(i);
+            }
+            return dados;
+        }
+    }
 }
